@@ -56,14 +56,14 @@ async fn prepare(token: String, g: Graduation, erc20: Erc20, dex: DexScreener, p
         "graduation"
     );
 
-    let text = render::message(&render::Info {
+    let render::Rendered { text, buttons } = render::message(&render::Info {
         token: &token,
         name: name.as_deref(),
         symbol: symbol.as_deref(),
         market_cap: market.market_cap,
         chart_url: &chart_url,
     });
-    if posts.send(Post { token, text }).await.is_err() {
+    if posts.send(Post { token, text, buttons }).await.is_err() {
         warn!("telegram sender is gone");
     }
 }

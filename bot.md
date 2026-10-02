@@ -77,21 +77,21 @@ None. The only in-memory state is the dedup set above.
 
 ## 5. Message
 
-Telegram `sendMessage`, `parse_mode=HTML` (less escaping than MarkdownV2), link previews off.
+Telegram `sendMessage`, `parse_mode=HTML`, link previews off, links as one row of inline URL buttons.
 
 ```
-🎓 <b>$SYMBOL</b> graduated
-Name                  ← omitted if same as symbol or unknown
-<code>0xTokenAddress</code>
+🎓 GRADUATED · PONS
+$SYMBOL — Token Name   ← "— Name" dropped if same as symbol; line dropped if both unknown
+Rule: curve exhausted
+CA: 0x…                ← <code>, tap to copy
+MC: $123k              ← omitted if DexScreener has no cap yet
 
-MC: <b>$4.21K</b>      ← omitted if DexScreener has no cap yet
-
-📈 Chart · Fomo · rh-scan ↗
+[📈 Chart] [Pons] [Fomo]
 ```
 
-- No name/symbol from RPC: header becomes `🎓 <b>Token</b> graduated`.
-- Wording is "graduated": `graduation` fires on pool creation (§8.1).
-- Links: DexScreener pair page (falls back to `dexscreener.com/robinhood/<token>`), Fomo (`fomo.family/tokens/robinhood/<token>`), rh-scan token page. Add a Pons token page link once the URL pattern is confirmed.
+- Rule is always "curve exhausted": Pons graduates when the bonding curve drains (`createGraduatedPool`, §8.1).
+- MC: 3 significant figures, lowercase suffix (`$4.21k`, `$123k`, `$1.5m`).
+- Buttons: DexScreener pair page (falls back to `dexscreener.com/robinhood/<token>`), Pons `ponsfamily.com/launchpad/<token>`, Fomo `fomo.family/tokens/robinhood/<token>`.
 
 ---
 
@@ -124,7 +124,7 @@ MC: <b>$4.21K</b>      ← omitted if DexScreener has no cap yet
    - Shows `PoolGraduated` / `PoolRegistered` → pool live and tradeable.
    - **Checked 2026-10-01 (1 sample):** tx `0x7aa03e…b5b5` calls `createGraduatedPool(address)` (`0x2f53ef2f`), so `graduation` fires on pool creation and the pool is live. Wording stays "graduated" (`GRADUATION_ON_SWEEP=false`); no second "pool live" message is needed.
 2. ~~**Metadata hit rate.**~~ Dropped with the cache.
-3. **Pons URL pattern** for token pages, for the link in §5.
+3. ~~**Pons URL pattern**~~ `https://www.ponsfamily.com/launchpad/<token>` (checked 2026-10-03).
 
 ---
 

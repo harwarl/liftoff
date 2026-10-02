@@ -14,6 +14,8 @@ const MAX_ATTEMPTS: u32 = 5;
 pub struct Post {
     pub token: String,
     pub text: String,
+    /// One row of inline URL buttons: (label, url).
+    pub buttons: Vec<(String, String)>,
 }
 
 pub struct Tg {
@@ -53,7 +55,8 @@ impl Tg {
 
     async fn deliver(&self, post: &Post) -> Result<()> {
         let Some((base, chat_id)) = &self.target else {
-            info!(token = %post.token, "[dry-run] would post:\n{}", post.text);
+            let buttons: Vec<String> = post.buttons.iter().map(|(l, u)| format!("[{l}]({u})")).collect();
+            info!(token = %post.token, "[dry-run] would post:\n{}\n{}", post.text, buttons.join(" "));
             return Ok(());
         };
 
@@ -63,6 +66,9 @@ impl Tg {
             "text": post.text,
             "parse_mode": "HTML",
             "link_preview_options": { "is_disabled": true },
+            "reply_markup": {
+                "inline_keyboard": [post.buttons.iter().map(|(l, u)| json!({ "text": l, "url": u })).collect::<Vec<_>>()],
+            },
         });
         self.call(base, "sendMessage", &body).await
     }
