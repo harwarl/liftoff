@@ -267,22 +267,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "grad_tokens"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "dotenvy",
- "futures-util",
- "reqwest",
- "serde",
- "serde_json",
- "tokio",
- "tokio-tungstenite",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
 name = "http"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -519,6 +503,22 @@ name = "libc"
 version = "0.2.189"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3eaf3ede3fee6db1a4c2ee091bf8a8b4dccdc6d17f656fb07896ee72867612f2"
+
+[[package]]
+name = "liftoff"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "dotenvy",
+ "futures-util",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tokio-tungstenite",
+ "tracing",
+ "tracing-subscriber",
+]
 
 [[package]]
 name = "litemap"

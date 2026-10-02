@@ -1,5 +1,5 @@
 [package]
-name = "grad_tokens"
+name = "liftoff"
 version = "0.1.0"
 edition = "2021"
 
